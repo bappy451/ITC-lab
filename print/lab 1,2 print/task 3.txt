@@ -1,0 +1,58 @@
+%Entropy and Mutual Information of BSC
+clc;
+close all;
+clear all;
+i=input('Enter the number of elements:');
+p=input('Enter the probabilities:');
+q=input('Enter the conditional matrix:');
+sum=0;
+for n=1:i                  %assigning the value of n
+    H=sum+p(n)*log(1/p(n))/log(2); %finding the value of entropy
+    sum=H;              
+end
+disp('H(x):');
+disp(H);                %displaying the value of entropy
+
+%Joint probability matrix
+for n=1:i 
+    for m=1:i          %assigning the value of n
+        a(n,m)=q(n,m)*p(n); %finding the value of probability matrix
+    end
+end
+disp('H(x,y):');
+disp(a);              %displaying the value of probability matrix
+ 
+%Entropy H(y|x)
+d=0;
+for n=1:i
+    for m=1:i
+        H1=d+(a(n,m))*log2(1/q(n,m)); %finding the value of entropy
+        d=H1;
+    end
+end
+disp('H(y|x):');
+disp(H1);        %displaying the value of conditional entropy
+ 
+%Probability p(y)
+for n=1:i          %assigning the value of n
+    w=0;            %initializing the value of n
+    for m=1:i        %assigning the value of n
+        s(n)=w+a(n,m);  %cumulative sum of probabilities
+        w=s(n);
+    end
+end
+disp('P(y):');      %displaying the value of probability of y
+disp(s);
+%Entropy H(y)
+k=0;
+    for n=1:i
+        H2=k+s(n)*log2(1/(s(n)));   %finding the value of entropy of y
+        k=H2;
+    end
+disp('H(y):');
+disp(H2);  %displaying the value of entropy of y
+
+%mutual Information
+m=H2-H1 %finding the value of mutual information of bsc
+disp('Mututal Information');
+disp(m);   %displaying the value of mutual information of bsc
